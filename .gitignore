@@ -1,0 +1,18 @@
+# Python specific
+*.egg-info/
+*.pyc
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+# Environment
+.env
+
+# Dependencies
+venv/
+
+# Other files
+.DS_STORE
+
+# IDE
+.vscode/
