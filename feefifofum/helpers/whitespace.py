@@ -1,21 +1,6 @@
 from __future__ import annotations
 
-from feefifofum.helpers.table import TABLE_SEPARATOR
-
-
-INDENT_SIZE = 2
-
-WHITESPACE_CONFIG: dict[str, tuple[int, int]] = {
-    # 'Keyword': (Newline amount, indent amount)
-    'Feature': (0, 0),
-    'Scenario': (2, 1),
-    'Given': (1, 2),
-    'When': (1, 2),
-    'Then': (1, 2),
-    'And': (1, 2),
-    'But': (1, 2),
-    TABLE_SEPARATOR: (0, 3),
-}
+from feefifofum.helpers.constants import INDENT_SIZE, TABLE_SEPARATOR, WHITESPACE_CONFIG
 
 
 def strip_whitespace(file_lines: list[str]) -> list[str]:

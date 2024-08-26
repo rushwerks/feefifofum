@@ -2,11 +2,7 @@ from __future__ import annotations
 
 from typing import Union
 
-
-TABLE_SEPARATOR = '|'
-TABLE_SPACER = ' | '
-TABLE_LEFT_EDGE = '| '
-TABLE_RIGHT_EDGE = ' |\n'
+from feefifofum.helpers.constants import TABLE_LEFT_EDGE, TABLE_RIGHT_EDGE, TABLE_SEPARATOR, TABLE_SPACER
 
 
 def identify_and_format_tables(file_lines: list[str]) -> list[str]:
@@ -74,7 +70,9 @@ def table_formatter(table: list[str]) -> list[str]:
 
     rows = _transpose_nested_list(spaced_columns)
 
-    formatted_table: list[str] = [f'{TABLE_LEFT_EDGE}{TABLE_SPACER.join(row)}{TABLE_RIGHT_EDGE}' for row in rows]
+    formatted_table: list[str] = [
+        f'{TABLE_LEFT_EDGE}{TABLE_SPACER.join(row)}{TABLE_RIGHT_EDGE}' for row in rows
+    ]
 
     return formatted_table
 
