@@ -1,0 +1,26 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.7'
+    - name: Install pipenv
+      run: pip install --no-cache-dir pipenv
+    - name: Install dev dependencies
+      run: pipenv install --dev --deploy --ignore-pipfile
+    - name: Run pre-commit
+      run: pipenv run pre-commit run --show-diff-on-failure --color=always
+    - name: Run tests
+      run: pipenv run pytest -vv
