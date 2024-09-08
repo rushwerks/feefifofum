@@ -1,0 +1,9 @@
+- id: feefifofum
+  name: Feature file formatter
+  entry: feefifofum
+  language: python
+  files: ^.*\.(feature)$
+  verbose: true
+  pass_filenames: true
+  require_serial: true
+  description: Formats feature files.
