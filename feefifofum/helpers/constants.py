@@ -8,10 +8,12 @@ TABLE_SPACER = ' | '
 TABLE_LEFT_EDGE = '| '
 TABLE_RIGHT_EDGE = ' |\n'
 
+
 # Whitespace
 class Whitespace(NamedTuple):
     newline: int
     indent: int
+
 
 WHITESPACE_CONFIG: dict[str, Whitespace] = {
     'Feature': Whitespace(0, 0),

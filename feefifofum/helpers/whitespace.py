@@ -26,9 +26,10 @@ def format_whitespace(file_lines: list[str]) -> list[str]:
     for line in file_lines:
         leading_word = line.split(maxsplit=1)[0].rstrip(':')
 
-        if leading_word in WHITESPACE_CONFIG or line.startswith(TABLE_SEPARATOR):  # TODO: Test
-            newline, indent = WHITESPACE_CONFIG[leading_word]
-            previous_leading_word_match = leading_word
+        if leading_word in WHITESPACE_CONFIG or line.startswith(TABLE_SEPARATOR):
+            whitespace_key = leading_word if leading_word in WHITESPACE_CONFIG else TABLE_SEPARATOR
+            newline, indent = WHITESPACE_CONFIG[whitespace_key]
+            previous_leading_word_match = whitespace_key
         else:
             newline, indent = WHITESPACE_CONFIG.get(previous_leading_word_match, (0, 0))
             newline = 0  # Keep in same feature file block

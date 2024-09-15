@@ -28,10 +28,9 @@ The formatter follows a list of pre-defined rules outlined below.
     * Tables/step text: Six spaces
 
 ## Installation
-To install the latest feefifofum version from the main branch, run the following command:
+Install the feefifofum directly from GitHub by running the following command:
 ```shell
-pip install git+https://github.com/rushwerks/feefifofum.git@v0.1.0
-
+pip install git+https://github.com/rushwerks/feefifofum.git@v0.1.1
 ```
 
 ## Usage
@@ -47,7 +46,7 @@ feefifofum <directory1> <directory2>
 `feefifofum` is also available as a pre-commit hook. It can be configured as follows:
 ```yaml
   - repo: https://github.com/rushwerks/feefifofum/
-    rev: v0.1.0
+    rev: v0.1.1
     hooks:
       - id: feefifofum
 ```
