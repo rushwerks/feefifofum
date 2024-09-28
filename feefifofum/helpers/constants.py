@@ -11,6 +11,13 @@ TABLE_RIGHT_EDGE = ' |\n'
 
 # Whitespace
 class Whitespace(NamedTuple):
+    """
+    Represents the whitespace configuration for feature files.
+
+    newline: Number of newlines to insert before element
+    indent : Level of indentation to apply to an element (measured in multiples of a fixed indent size)
+    """
+
     newline: int
     indent: int
 

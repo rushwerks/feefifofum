@@ -22,9 +22,9 @@ The formatter follows a list of pre-defined rules outlined below.
 ### Indentation
 * Two spaces for indentation
 * Indent one level for each feature file keyword, resulting in:
-    * Feature: Zero spaces
-    * Scenario: Two spaces
-    * Given/When/Then: Four spaces
+    * `Feature`: Zero spaces
+    * `Scenario`: Two spaces
+    * `Given`/`When`/`Then`/`And`: Four spaces
     * Tables/step text: Six spaces
 
 ## Installation
@@ -50,3 +50,12 @@ feefifofum <directory1> <directory2>
     hooks:
       - id: feefifofum
 ```
+
+## Table format
+Feature files should have a single table per step (`Given`/`When`/`Then`/`And`). This assumption is used to identify tables, by tracking changes of pipe (`|`) characters on each line.
+
+Each row of a table must also:
+* Start with pipe character
+* End with a pipe character
+* Have a consistent number of pipe characters
+* Only use a single pipe character for each cell's boundary

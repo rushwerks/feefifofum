@@ -9,7 +9,12 @@ ROOT_DIR = Path(__file__).resolve().parent
 
 
 class TestFormatFeatureFile:
-    """Tests for format_feature_file()."""
+    """
+    Tests for format_feature_file().
+
+    Attributes:
+        test_data: List of tuples containing names of input and expected output feature files.
+    """
 
     test_data = [
         ('full_file_input.feature', 'full_file_expected.feature'),
@@ -18,7 +23,13 @@ class TestFormatFeatureFile:
 
     @pytest.mark.parametrize('input_file, expected_file', test_data)
     def test_format_feature_file(self, input_file: str, expected_file: str) -> None:
-        """Tests format_feature_file by running all transformations."""
+        """
+        Test format_feature_file() by running all transformations.
+
+        :param input_file: Name of input feature file
+        :param expected_file: Name of expected output feature file
+        """
+
         file_path_input = ROOT_DIR / 'data' / input_file
         file_path_expected = ROOT_DIR / 'data' / expected_file
 

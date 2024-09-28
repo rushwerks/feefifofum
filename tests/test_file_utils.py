@@ -12,6 +12,12 @@ class TestGetFilePaths:
 
     @pytest.fixture
     def mock_file_paths(self, tmp_path: Path) -> dict[str, Path]:
+        """
+        Fixture to set up temporary file structure with text and non-text files and nested directories.
+
+        :param tmp_path: Pytest fixture for creating a temporary directory
+        :return: Mapping of descriptive keys to file paths.
+        """
         mock_file_paths = {
             'text_file': tmp_path / 'text_file.txt',
             'nested_text_file_1': tmp_path / 'subdirectory_1' / 'nested_text_file.txt',
