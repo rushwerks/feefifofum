@@ -14,15 +14,15 @@ def get_file_paths(input_paths: list[Path], file_extension: str) -> list[Path]:
     """
     output_paths = set()
 
-    for path in input_paths:
-        path = Path(path)
+    for input_path in input_paths:
+        path = Path(input_path)
         if path.is_file() and path.suffix == file_extension:
             output_paths.add(path)
         elif path.is_dir():
             path_list = list(path.rglob(f'*{file_extension}'))
             output_paths.update(path_list)
 
-    return sorted(list(output_paths))
+    return sorted(output_paths)
 
 
 def read_file_lines(file_path: Path) -> list[str]:  # pragma: no cover
@@ -32,7 +32,7 @@ def read_file_lines(file_path: Path) -> list[str]:  # pragma: no cover
     :param file_path: File path to read from
     :return: File content as a list with each line as an element
     """
-    with open(file_path, 'r') as file:
+    with open(file_path) as file:
         return file.readlines()
 
 

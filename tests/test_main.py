@@ -23,7 +23,7 @@ class TestFormatFeatureFile:
         ('text_only_input.feature', 'text_only_expected.feature'),
     ]
 
-    @pytest.mark.parametrize('input_file, expected_file', test_data)
+    @pytest.mark.parametrize(('input_file', 'expected_file'), test_data)
     def test_format_feature_file(self, input_file: str, expected_file: str) -> None:
         """
         Test format_feature_file() end-to-end by running all transformations.

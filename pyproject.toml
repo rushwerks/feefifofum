@@ -28,7 +28,7 @@ line-length = 120
 target-version = "py37"
 
 [tool.ruff.lint]
-extend-select = ["E501"]
+extend-select = ["UP", "E501"]
 
 [tool.ruff.format]
 quote-style = "single"

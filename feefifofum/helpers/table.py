@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Union
-
 from feefifofum.helpers.constants import TABLE_LEFT_EDGE, TABLE_RIGHT_EDGE, TABLE_SEPARATOR, TABLE_SPACER
 
 
@@ -19,7 +17,7 @@ def identify_and_format_tables(file_lines: list[str]) -> list[str]:
     for start_index, table in tables.items() or {}:
         formatted_table = table_formatter(table)
         end_index = start_index + len(table)
-        file_lines[start_index: end_index] = formatted_table
+        file_lines[start_index:end_index] = formatted_table
 
     return file_lines
 
@@ -66,15 +64,12 @@ def table_formatter(table: list[str]) -> list[str]:
     column_widths = [max(len(cell) for cell in column) for column in columns]
 
     spaced_columns = [
-        [cell.ljust(column_width) for cell in column]
-        for column, column_width in zip(columns, column_widths)
+        [cell.ljust(column_width) for cell in column] for column, column_width in zip(columns, column_widths)
     ]
 
     rows = _transpose_nested_list(spaced_columns)
 
-    formatted_table: list[str] = [
-        f'{TABLE_LEFT_EDGE}{TABLE_SPACER.join(row)}{TABLE_RIGHT_EDGE}' for row in rows
-    ]
+    formatted_table: list[str] = [f'{TABLE_LEFT_EDGE}{TABLE_SPACER.join(row)}{TABLE_RIGHT_EDGE}' for row in rows]
 
     return formatted_table
 
@@ -89,9 +84,7 @@ def _transpose_nested_list(nested_list: list[list]) -> list[list]:
     return [list(x) for x in zip(*nested_list)]
 
 
-def _add_table_to_mapping(
-    table: list[str], start_index: Union[int, None], table_mapping: dict[int, list[str]]
-) -> None:
+def _add_table_to_mapping(table: list[str], start_index: int | None, table_mapping: dict[int, list[str]]) -> None:
     """
     Add table to table mapping if it has content.
 
