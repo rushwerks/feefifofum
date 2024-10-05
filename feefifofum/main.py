@@ -1,3 +1,5 @@
+"""Main entry point for feature file formatter."""
+
 from __future__ import annotations
 
 from argparse import ArgumentParser
@@ -25,9 +27,7 @@ def format_feature_file(file_lines: list[str]) -> list[str]:
 
 
 def format() -> None:  # pragma: no cover
-    """
-    Run feature file formatter.
-    """
+    """Run feature file formatter."""
     parser = ArgumentParser(description='Formats feature file')
     parser.add_argument(
         'paths',

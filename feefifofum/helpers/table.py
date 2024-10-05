@@ -1,3 +1,5 @@
+"""Helper functions for identifying and formatting tables in feature files."""
+
 from __future__ import annotations
 
 from typing import Union

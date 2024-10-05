@@ -1,3 +1,5 @@
+"""Constants and configuration for feature file formatter."""
+
 from __future__ import annotations
 
 from typing import NamedTuple

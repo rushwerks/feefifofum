@@ -1,3 +1,5 @@
+"""Utility functions for working with files."""
+
 from __future__ import annotations
 
 from pathlib import Path

@@ -1,3 +1,5 @@
+"""Helper functions for formatting whitespace in feature files."""
+
 from __future__ import annotations
 
 from feefifofum.helpers.constants import INDENT_SIZE, TABLE_SEPARATOR, WHITESPACE_CONFIG
