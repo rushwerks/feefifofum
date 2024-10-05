@@ -21,7 +21,7 @@ classifiers = [
 Homepage = "https://github.com/rushwerks/feefifofum"
 
 [project.scripts]
-feefifofum = "feefifofum:format"
+feefifofum = "feefifofum.main:main"
 
 [tool.ruff]
 line-length = 120

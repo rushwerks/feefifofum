@@ -26,7 +26,7 @@ def format_feature_file(file_lines: list[str]) -> list[str]:
     return formatted
 
 
-def format() -> None:  # pragma: no cover
+def main() -> None:  # pragma: no cover
     """Run feature file formatter."""
     parser = ArgumentParser(description='Formats feature file')
     parser.add_argument(
@@ -55,4 +55,4 @@ def format() -> None:  # pragma: no cover
 
 
 if __name__ == '__main__':  # pragma: no cover
-    format()
+    main()
