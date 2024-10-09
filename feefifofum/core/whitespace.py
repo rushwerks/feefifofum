@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from feefifofum.helpers.constants import INDENT_SIZE, TABLE_SEPARATOR, WHITESPACE_CONFIG
+from feefifofum.core.constants import INDENT_SIZE, TABLE_SEPARATOR, WHITESPACE_CONFIG
 
 
 def strip_whitespace(file_lines: list[str]) -> list[str]:

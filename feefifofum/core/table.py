@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from feefifofum.helpers.constants import TABLE_LEFT_EDGE, TABLE_RIGHT_EDGE, TABLE_SEPARATOR, TABLE_SPACER
+from feefifofum.core.constants import TABLE_LEFT_EDGE, TABLE_RIGHT_EDGE, TABLE_SEPARATOR, TABLE_SPACER
 
 
 def identify_and_format_tables(file_lines: list[str]) -> list[str]:
@@ -92,5 +92,5 @@ def _add_table_to_mapping(table: list[str], start_index: int | None, table_mappi
     :param start_index: Starting index of table
     :param table_mapping: Mapping of table starting index to table content
     """
-    if table:
+    if table and start_index:
         table_mapping[start_index] = table
