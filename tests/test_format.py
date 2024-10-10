@@ -1,10 +1,10 @@
-"""Tests for main entry point."""
+"""Tests for feature file formatting."""
 
 from pathlib import Path
 
 import pytest
 
-from feefifofum.main import format_feature_file
+from feefifofum.core.format import format_feature_file
 from feefifofum.utils.file_utils import read_file_lines
 
 ROOT_DIR = Path(__file__).resolve().parent

@@ -5,25 +5,8 @@ from __future__ import annotations
 from argparse import ArgumentParser
 from pathlib import Path
 
-from feefifofum.core.table import identify_and_format_tables
-from feefifofum.core.whitespace import format_whitespace, strip_whitespace
+from feefifofum.core.format import format_feature_file
 from feefifofum.utils.file_utils import get_file_paths, read_file_lines, write_file_lines
-
-
-def format_feature_file(file_lines: list[str]) -> list[str]:
-    """
-    Format feature file content.
-
-    :param file_lines: Feature file content as list of strings
-    :return: Formatted feature file content
-    """
-    stripped = strip_whitespace(file_lines)  # Whitespace must be stripped prior to format functions
-    formatted = stripped[:]
-
-    formatted = identify_and_format_tables(formatted)
-    formatted = format_whitespace(formatted)
-
-    return formatted
 
 
 def main() -> None:  # pragma: no cover
