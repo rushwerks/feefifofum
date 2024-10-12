@@ -12,9 +12,9 @@ Feature: Example test file for formatter
      And corresponding customers exists in system B
     # Comment 1
       # Comment 2
-      | contract_id       | customer_id |
-      | contract_1    |customer_1   |
-      | contract_3 | customer_2 |
+      | contract_id       | customer_id | partial_column ||
+      | contract_1    |customer_1   | | |
+      | contract_3 | customer_2 | y  |      |
 
     Then the output table should show missing contract data and the error type
     """

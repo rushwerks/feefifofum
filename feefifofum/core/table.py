@@ -56,9 +56,9 @@ def table_formatter(table: list[str]) -> list[str]:
     :param table: Table as list of strings (each list element is a row)
     :return: Formatted feature file table
     """
-    # Each row is represented as a list of cells (strings)
-    rows: list[list[str]] = [row.strip().split(TABLE_SEPARATOR) for row in table]
-    trimmed_rows = [[cell.strip() for cell in row if cell] for row in rows]
+    # Remove first and last cells which are empty strings, after split is applied
+    rows = [row.strip().split(TABLE_SEPARATOR)[1:-1] for row in table]
+    trimmed_rows = [[cell.strip() for cell in row] for row in rows]
 
     columns = _transpose_nested_list(trimmed_rows)
     column_widths = [max(len(cell) for cell in column) for column in columns]
@@ -69,7 +69,7 @@ def table_formatter(table: list[str]) -> list[str]:
 
     rows = _transpose_nested_list(spaced_columns)
 
-    formatted_table: list[str] = [f'{TABLE_LEFT_EDGE}{TABLE_SPACER.join(row)}{TABLE_RIGHT_EDGE}' for row in rows]
+    formatted_table = [f'{TABLE_LEFT_EDGE}{TABLE_SPACER.join(row)}{TABLE_RIGHT_EDGE}' for row in rows]
 
     return formatted_table
 
