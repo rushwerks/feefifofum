@@ -8,9 +8,9 @@
 
 </div>
 
-Fee-fi-fo-fum is a simple and lightweight (fe)ature (fi)le (fo)rmatter written in Python.
+Fee-fi-fo-fum (`feefifofum`) is a simple and lightweight (fe)ature (fi)le (fo)rmatter written in Python.
 
-It allows you to easily format `.feature` files (used in Behavior Driven Development) according to predefined rules.
+A `.feature` file is a plain-text file written in Gherkin syntax, and is used in Behavior Driven Development (BDD) to define test scenarios for software.
 
 ## Formatting
 The formatter follows a list of pre-defined rules outlined below.
@@ -25,28 +25,38 @@ The formatter follows a list of pre-defined rules outlined below.
     * `Feature`: Zero spaces
     * `Scenario`: Two spaces
     * `Given`/`When`/`Then`/`And`: Four spaces
-    * Tables/step text: Six spaces
+    * Tables/step comments: Six spaces
 
 ## Installation
-Install the feefifofum directly from GitHub by running the following command:
+Install  `feefifofum` directly from GitHub by running the following command:
 ```shell
-pip install git+https://github.com/rushwerks/feefifofum.git@v0.1.1
+pip install git+https://github.com/rushwerks/feefifofum.git@v0.1.3
 ```
 
 ## Usage
-Format any number of feature files or directories containing feature files, by providing a list of path arguments. If directory paths are provided, then feature files will be searched recursively downward from these paths.
+`feefifofum` can run directly on feature files or directories containing feature files.
+If directory paths are provided, then feature files in all subdirectories will also be formatted.
 
 ```shell
-feefifofum <file>
-feefifofum <file1> <file2> <file3>
-feefifofum <directory1> <directory2>
+feefifofum <file>                     # Format a single file
+feefifofum <file1> <file2> <file3>    # Format multiple files
+feefifofum .                          # Format all feature files in current directory and subdirectories
+feefifofum <directory>                # Format all feature files in specified directory and any subdirectories
+feefifofum <directory1> <directory2>  # Format all feature files in multiple directories (and any of their subdirectories)
+```
+
+### Output
+In its default setting, `feefifofum` will only log the total number of files formatted to the console.
+The `--verbose` or `-v` flag can be passed to log information on which files have been formatted and overall progress.
+```shell
+feefifofum <file1> <file2> <file3> --verbose
 ```
 
 ## Pre-commit
 `feefifofum` is also available as a pre-commit hook. It can be configured as follows:
 ```yaml
   - repo: https://github.com/rushwerks/feefifofum/
-    rev: v0.1.1
+    rev: v0.1.3
     hooks:
       - id: feefifofum
 ```
