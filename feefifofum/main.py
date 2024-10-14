@@ -6,6 +6,7 @@ import logging
 from argparse import ArgumentParser
 from pathlib import Path
 
+from feefifofum import __version__
 from feefifofum.core.format import format_feature_file
 from feefifofum.utils.file_utils import get_file_paths, read_file_lines, write_file_lines
 
@@ -22,6 +23,7 @@ def main() -> None:  # pragma: no cover
         help='Path to feature files and/or directories',
     )
     parser.add_argument('--verbose', '-v', action='store_true', help='Enable verbose logging')
+    parser.add_argument('--version', '-V', action='version', version=f'%(prog)s {__version__}')
 
     args = parser.parse_args()
     if args.verbose:

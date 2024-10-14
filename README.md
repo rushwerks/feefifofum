@@ -30,7 +30,7 @@ The formatter follows a list of pre-defined rules outlined below.
 ## Installation
 Install  `feefifofum` directly from GitHub by running the following command:
 ```shell
-pip install git+https://github.com/rushwerks/feefifofum.git@v0.1.3
+pip install git+https://github.com/rushwerks/feefifofum.git@v0.2.0
 ```
 
 ## Usage
@@ -56,7 +56,7 @@ feefifofum <file1> <file2> <file3> --verbose
 `feefifofum` is also available as a pre-commit hook. It can be configured as follows:
 ```yaml
   - repo: https://github.com/rushwerks/feefifofum/
-    rev: v0.1.3
+    rev: v0.2.0
     hooks:
       - id: feefifofum
 ```
