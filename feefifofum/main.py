@@ -1,33 +1,18 @@
 """Main entry point for feature file formatter."""
 
-from __future__ import annotations
-
 import logging
-from argparse import ArgumentParser
-from pathlib import Path
 
-from feefifofum import __version__
 from feefifofum.core.format import format_feature_file
+from feefifofum.core.parser import parse_args
 from feefifofum.utils.file_utils import get_file_paths, read_file_lines, write_file_lines
-
-logging.basicConfig(level=logging.INFO, format='%(message)s')
 
 
 def main() -> None:  # pragma: no cover
     """Run feature file formatter."""
-    parser = ArgumentParser(description='Formats feature file')
-    parser.add_argument(
-        'paths',
-        type=Path,
-        nargs='+',
-        help='Path to feature files and/or directories',
-    )
-    parser.add_argument('--verbose', '-v', action='store_true', help='Enable verbose logging')
-    parser.add_argument('--version', '-V', action='version', version=f'%(prog)s {__version__}')
+    args = parse_args()
 
-    args = parser.parse_args()
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
+    log_level = logging.DEBUG if args.verbose else logging.INFO
+    logging.basicConfig(level=log_level, format='%(message)s')
 
     file_paths = get_file_paths(args.paths, '.feature')
     file_count = len(file_paths)
