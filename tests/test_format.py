@@ -15,13 +15,13 @@ class TestFormatFeatureFile:
     Tests for format_feature_file().
 
     Attributes:
-        test_data: List of tuples containing names of input and expected output feature files.
+        test_data: Tuples containing names of input and expected output feature files.
     """
 
-    test_data = [
+    test_data = (
         ('full_file_input.feature', 'full_file_expected.feature'),
         ('text_only_input.feature', 'text_only_expected.feature'),
-    ]
+    )
 
     @pytest.mark.parametrize(('input_file', 'expected_file'), test_data)
     def test_format_feature_file(self, input_file: str, expected_file: str) -> None:

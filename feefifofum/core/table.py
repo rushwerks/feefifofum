@@ -1,4 +1,4 @@
-"""Helper functions for identifying and formatting tables in feature files."""
+"""Functions for identifying and formatting tables in feature files."""
 
 from __future__ import annotations
 
@@ -42,9 +42,9 @@ def find_tables(file_lines: list[str]) -> dict[int, list[str]]:
             _add_table_to_mapping(table, start_index, table_mapping)
             table = []
             start_index = None
-    else:
-        # Append the last table if it exists
-        _add_table_to_mapping(table, start_index, table_mapping)
+
+    # Append the last table if it exists
+    _add_table_to_mapping(table, start_index, table_mapping)
 
     return table_mapping
 

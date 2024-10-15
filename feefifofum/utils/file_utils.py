@@ -14,8 +14,7 @@ def get_file_paths(input_paths: list[Path], file_extension: str) -> list[Path]:
     """
     output_paths = set()
 
-    for input_path in input_paths:
-        path = Path(input_path)
+    for path in input_paths:
         if path.is_file() and path.suffix == file_extension:
             output_paths.add(path)
         elif path.is_dir():

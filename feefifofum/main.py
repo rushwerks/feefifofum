@@ -3,7 +3,7 @@
 import logging
 
 from feefifofum.core.format import format_feature_file
-from feefifofum.core.parser import parse_args
+from feefifofum.core.parse import parse_args
 from feefifofum.utils.file_utils import get_file_paths, read_file_lines, write_file_lines
 
 

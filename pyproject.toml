@@ -1,15 +1,21 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = [ "setuptools", "wheel" ]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "feefifofum"
-dynamic = ["version"]
+dynamic = [ "version" ]
 requires-python = ">=3.7"
 description = "Feature file formatter"
 readme = "README.md"
-license = {text = "MIT License"}
-keywords = ["BDD", "behavior-driven-development", "gherkin", "feature", "formatter"]
+license = { text = "MIT License" }
+keywords = [
+    "BDD",
+    "behavior-driven-development",
+    "gherkin",
+    "feature",
+    "formatter",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -24,14 +30,44 @@ Homepage = "https://github.com/rushwerks/feefifofum"
 feefifofum = "feefifofum.main:main"
 
 [tool.setuptools.dynamic]
-version = {attr = "feefifofum.__version__"}
+version = { attr = "feefifofum.__version__" }
 
 [tool.ruff]
 line-length = 120
 target-version = "py37"
 
 [tool.ruff.lint]
-extend-select = ["UP", "E501"]
+select = [
+    "F",    # Pyflakes
+    "E",    # pycodestyle - Error
+    "W",    # pycodestyle - Warning
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "ANN",  # flake8-annotations
+    "BLE",  # flake8-blind-except
+    "FBT",  # flake8-boolean-trap
+    "B",    # flake8-bugbear
+    "A",    # flake8-builtins
+    "COM",  # flake8-commas
+    "C4",   # flake8-comprehensions
+    "EM",   # flake8-errmsg
+    "FA",   # flake8-future-annotations
+    "LOG",  # flake8-logging
+    "PT",   # flake8-pytest-style
+    "RSE",  # flake8-raise
+    "RET",  # flake8-return
+    "SIM",  # flake8-simplify
+    "ARG",  # flake8-unused-arguments
+    "PL",   # Pylint
+    "FURB", # refurb
+    "RUF",  # Ruff-specific rules
+]
+ignore = [
+    "RET504",  # unnecessary-assign
+    "PLR6301", # no-self-use
+    "PLW1514", # unspecified-encoding
+]
 
 [tool.ruff.format]
 quote-style = "single"

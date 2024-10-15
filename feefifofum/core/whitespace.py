@@ -1,4 +1,4 @@
-"""Helper functions for formatting whitespace in feature files."""
+"""Functions for formatting whitespace in feature files."""
 
 from __future__ import annotations
 
