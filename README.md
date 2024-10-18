@@ -46,8 +46,10 @@ feefifofum <directory1> <directory2>  # Format all feature files in multiple dir
 ```
 
 ### Output
-In its default setting, `feefifofum` will only log the total number of files formatted to the console.
-The `--verbose` or `-v` flag can be passed to log information on which files have been formatted and overall progress.
+In its default setting, `feefifofum` will only log the total number of formatted and unchanged files to the console.
+Files marked as 'unchanged' already meet the required formatting standard and therefore no changes are written to these files.
+
+The `--verbose` or `-v` flag can be passed to log realtime information on which files have been formatted (or are unchanged), and overall progress.
 ```shell
 feefifofum <file1> <file2> <file3> --verbose
 ```

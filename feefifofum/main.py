@@ -21,13 +21,25 @@ def main() -> None:  # pragma: no cover
         logging.warning('No feature file(s) found in specified path(s)')
         return
 
+    changed_count, unchanged_count = 0, 0
     for index, file_path in enumerate(file_paths, 1):
         file_lines = read_file_lines(file_path)
         formatted_file_lines = format_feature_file(file_lines)
-        write_file_lines(formatted_file_lines, file_path)
-        logging.debug(f'Formatted: {file_path} ({index}/{file_count})')
 
-    logging.info(f'Formatted {file_count} file(s)')
+        if file_lines == formatted_file_lines:
+            logging.debug(f'({index}/{file_count}) | unchanged | {file_path}')
+            unchanged_count += 1
+            continue
+
+        write_file_lines(formatted_file_lines, file_path)
+        logging.debug(f'({index}/{file_count}) | formatted | {file_path}')
+        changed_count += 1
+
+    if changed_count:
+        logging.info(f'{changed_count} file(s) formatted')
+
+    if unchanged_count:
+        logging.info(f'{unchanged_count} file(s) unchanged')
 
 
 if __name__ == '__main__':  # pragma: no cover
