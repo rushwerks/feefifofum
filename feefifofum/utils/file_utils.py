@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
 
 
@@ -44,3 +45,15 @@ def write_file_lines(content: list[str], file_path: Path) -> None:  # pragma: no
     """
     with open(file_path, 'w') as file:
         file.writelines(content)
+
+
+def backup_file(file_path: Path) -> Path:  # pragma: no cover
+    """
+    Create backup copy of file.
+
+    :param file_path: File path to backup
+    :return: File path of backed up file
+    """
+    backup_file_path = file_path.with_suffix(file_path.suffix + '.bak')
+    shutil.copy2(file_path, backup_file_path)  # Try to preserve metadata
+    return backup_file_path

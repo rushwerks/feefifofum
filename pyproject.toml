@@ -64,6 +64,8 @@ select = [
     "RUF",  # Ruff-specific rules
 ]
 ignore = [
+    "ANN101",  # missing-type-self
+    "ANN401",  # any-type
     "RET504",  # unnecessary-assign
     "PLR6301", # no-self-use
     "PLW1514", # unspecified-encoding

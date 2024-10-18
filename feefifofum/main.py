@@ -4,7 +4,8 @@ import logging
 
 from feefifofum.core.format import format_feature_file
 from feefifofum.core.parse import parse_args
-from feefifofum.utils.file_utils import get_file_paths, read_file_lines, write_file_lines
+from feefifofum.utils.file_utils import backup_file, get_file_paths, read_file_lines, write_file_lines
+from feefifofum.utils.log import generate_progress_message
 
 
 def main() -> None:  # pragma: no cover
@@ -27,12 +28,16 @@ def main() -> None:  # pragma: no cover
         formatted_file_lines = format_feature_file(file_lines)
 
         if file_lines == formatted_file_lines:
-            logging.debug(f'({index}/{file_count}) | unchanged | {file_path}')
+            logging.debug(generate_progress_message(index, file_count, 'unchanged', file_path))
             unchanged_count += 1
             continue
 
+        if args.backup:
+            backup_file_path = backup_file(file_path)
+            logging.debug(generate_progress_message('-', '-', 'backed up', backup_file_path))
+
         write_file_lines(formatted_file_lines, file_path)
-        logging.debug(f'({index}/{file_count}) | formatted | {file_path}')
+        logging.debug(generate_progress_message(index, file_count, 'formatted', file_path))
         changed_count += 1
 
     if changed_count:
