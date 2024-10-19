@@ -24,7 +24,7 @@ def identify_and_format_tables(file_lines: list[str]) -> list[str]:
 
 def find_tables(file_lines: list[str]) -> dict[int, list[str]]:
     """
-    Find and extract feature file tables.
+    Find and extract tables in feature file.
 
     :param file_lines: Feature file content as list of strings
     :return: Mapping of table start index to table content
@@ -38,40 +38,43 @@ def find_tables(file_lines: list[str]) -> dict[int, list[str]]:
             start_index = start_index or index
             table.append(line)
         else:
-            # Append current table (if it exists) once non-table encountered
-            _add_table_to_mapping(table, start_index, table_mapping)
+            # Add current table to mapping if it exists, once non-table character is encountered
+            table_mapping.update({start_index: table} if table else {})
             table = []
             start_index = None
 
-    # Append the last table if it exists
-    _add_table_to_mapping(table, start_index, table_mapping)
+    # Add last table to mapping if it exists
+    table_mapping.update({start_index: table} if table else {})
 
     return table_mapping
 
 
 def table_formatter(table: list[str]) -> list[str]:
     """
-    Format feature file table by consistently spacing columns.
+    Format feature file table by stripping cell whitespace and consistently spacing columns.
 
     :param table: Table as list of strings (each list element is a row)
     :return: Formatted feature file table
     """
+    rows = _split_table_into_rows(table)
+    columns = _transpose_nested_list(rows)
+    padded_columns = _pad_columns(columns)
+    formatted_rows = _transpose_nested_list(padded_columns)
+    formatted_table = _combine_rows_into_table(formatted_rows)
+    return formatted_table
+
+
+def _split_table_into_rows(table: list[str]) -> list[list[str]]:
+    """
+    Split table into list of rows and strip whitespace from each cell.
+
+    :param table: Table represented as list of strings
+    :return: List of rows represented as list of cells
+    """
     # Remove first and last cells which are empty strings, after split is applied
     rows = [row.strip().split(TABLE_SEPARATOR)[1:-1] for row in table]
-    trimmed_rows = [[cell.strip() for cell in row] for row in rows]
-
-    columns = _transpose_nested_list(trimmed_rows)
-    column_widths = [max(len(cell) for cell in column) for column in columns]
-
-    spaced_columns = [
-        [cell.ljust(column_width) for cell in column] for column, column_width in zip(columns, column_widths)
-    ]
-
-    rows = _transpose_nested_list(spaced_columns)
-
-    formatted_table = [f'{TABLE_LEFT_EDGE}{TABLE_SPACER.join(row)}{TABLE_RIGHT_EDGE}' for row in rows]
-
-    return formatted_table
+    row_cells = [[cell.strip() for cell in row] for row in rows]
+    return row_cells
 
 
 def _transpose_nested_list(nested_list: list[list]) -> list[list]:
@@ -84,13 +87,27 @@ def _transpose_nested_list(nested_list: list[list]) -> list[list]:
     return [list(x) for x in zip(*nested_list)]
 
 
-def _add_table_to_mapping(table: list[str], start_index: int | None, table_mapping: dict[int, list[str]]) -> None:
+def _pad_columns(columns: list[list[str]]) -> list[list[str]]:
     """
-    Add table to table mapping if it has content.
+    Pad each column to a consistent width.
 
-    :param table: Table as list of strings (each list element is a row)
-    :param start_index: Starting index of table
-    :param table_mapping: Mapping of table starting index to table content
+    :param columns: List of columns represented as list of cells
+    :return: Padded list of columns
     """
-    if table and start_index:
-        table_mapping[start_index] = table
+    column_widths = [max(len(cell) for cell in column) for column in columns]
+
+    spaced_columns = [
+        [cell.ljust(column_width) for cell in column] for column, column_width in zip(columns, column_widths)
+    ]
+
+    return spaced_columns
+
+
+def _combine_rows_into_table(rows: list[list[str]]) -> list[str]:
+    """
+    Combine list of rows into a single table.
+
+    :param rows: List of rows represented as list of cells
+    :return: Table represented as list of strings
+    """
+    return [f'{TABLE_LEFT_EDGE}{TABLE_SPACER.join(row)}{TABLE_RIGHT_EDGE}' for row in rows]
