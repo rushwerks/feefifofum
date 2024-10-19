@@ -30,7 +30,7 @@ The formatter follows a list of pre-defined rules outlined below.
 ## Installation
 Install  `feefifofum` directly from GitHub by running the following command:
 ```shell
-pip install git+https://github.com/rushwerks/feefifofum.git@v0.2.0
+pip install git+https://github.com/rushwerks/feefifofum.git@v0.3.0
 ```
 
 ## Usage
@@ -54,11 +54,20 @@ The `--verbose` or `-v` flag can be passed to log realtime information on which 
 feefifofum <file1> <file2> <file3> --verbose
 ```
 
+### Backup
+If files do not meet the required formatting standards, `feefifofum` will overwrite them with necessary changes.
+
+The `--backup` flag can be passed to create backups of the original files.
+This works by creating a copy of the original file in the same directory, and appending a `.bak` extension to the filename. Permissions of the original file will be preserved and file metadata will attempt to be [preserved](https://docs.python.org/3/library/shutil.html#shutil.copy2).
+```shell
+feefifofum <file> --backup --verbose
+```
+
 ## Pre-commit
 `feefifofum` is also available as a pre-commit hook. It can be configured as follows:
 ```yaml
   - repo: https://github.com/rushwerks/feefifofum/
-    rev: v0.2.0
+    rev: v0.3.0
     hooks:
       - id: feefifofum
 ```
