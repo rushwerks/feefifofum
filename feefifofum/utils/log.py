@@ -2,17 +2,18 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 
-def generate_progress_message(count: int | str, total_count: int | str, action: str, message: Any) -> str:
+def generate_log_message(file_path: Path, message: Any, count: int | str = '-', total_count: int | str = '-') -> str:
     """
     Generate progress message for debugging/verbose output.
 
-    :param count: Count of current iteration (or '-')
-    :param total_count: Total number of iterations (or '-')
-    :param action: Action performed
+    :param file_path: File path to log information on
     :param message: Message to log
+    :param count: Count of current iteration
+    :param total_count: Total number of iterations
     :return: Debugging progress message
     """
-    return f'({count}/{total_count}) | {action} | {message}'
+    return f'({count}/{total_count}) | {file_path} - {message}'

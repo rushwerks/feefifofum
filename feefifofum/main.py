@@ -8,7 +8,7 @@ from pathlib import Path
 from feefifofum.core.format import format_feature_file
 from feefifofum.core.parse import parse_args
 from feefifofum.utils.file_utils import backup_file, get_file_paths, read_file_lines, write_file_lines
-from feefifofum.utils.log import generate_progress_message
+from feefifofum.utils.log import generate_log_message
 
 
 def main() -> None:  # pragma: no cover
@@ -21,7 +21,7 @@ def main() -> None:  # pragma: no cover
     file_paths = get_file_paths(input_paths=args.paths, file_extension='.feature')
 
     if not file_paths:
-        logging.warning('No feature file(s) found in specified path(s)')
+        logging.warning('No feature files found in specified path(s)')
         return
 
     changed_count, unchanged_count = _process_files(file_paths=file_paths, backup=args.backup)
@@ -35,7 +35,7 @@ def main() -> None:  # pragma: no cover
 
 def _process_files(file_paths: list[Path], *, backup: bool | None) -> tuple[int, int]:
     """
-    Process files and return count of changed and unchanged files.
+    Process files and return count of formatted and unchanged files.
 
     :param file_paths: List of feature file paths to process
     :param backup: Whether to backup original files before formatting (overwriting)
@@ -45,20 +45,46 @@ def _process_files(file_paths: list[Path], *, backup: bool | None) -> tuple[int,
     changed_count, unchanged_count = 0, 0
 
     for index, file_path in enumerate(file_paths, 1):
-        file_lines = read_file_lines(file_path)
+        try:
+            file_lines = read_file_lines(file_path)
+        except (FileNotFoundError, PermissionError, UnicodeDecodeError, OSError) as e:
+            read_error_message = generate_log_message(file_path=file_path, message=f'Failed reading from file: {e}')
+            logging.error(read_error_message)
+            continue
+
         formatted_file_lines = format_feature_file(file_lines)
 
         if file_lines == formatted_file_lines:
-            logging.debug(generate_progress_message(index, file_count, 'unchanged', file_path))
+            debug_message = generate_log_message(
+                file_path=file_path, message='Unchanged (skipped)', count=index, total_count=file_count
+            )
+            logging.debug(debug_message)
             unchanged_count += 1
             continue
 
         if backup:
-            backup_file_path = backup_file(file_path)
-            logging.debug(generate_progress_message('-', '-', 'backed up', backup_file_path))
+            backup_file_path = file_path.with_suffix(file_path.suffix + '.bak')
+            try:
+                backup_file(file_path, backup_file_path)
+                backup_message = generate_log_message(file_path=backup_file_path, message='Backed up')
+                logging.debug(backup_message)
+            except (FileNotFoundError, PermissionError, OSError) as e:
+                backup_error_message = generate_log_message(
+                    file_path=file_path, message=f'Failed backing up file: {e}', count=index, total_count=file_count
+                )
+                logging.error(backup_error_message)
+                continue
+        try:
+            write_file_lines(formatted_file_lines, file_path)
+        except (PermissionError, UnicodeEncodeError, OSError) as e:
+            write_error_message = generate_log_message(file_path=file_path, message=f'Failed writing to file: {e}')
+            logging.error(write_error_message)
+            continue
 
-        write_file_lines(formatted_file_lines, file_path)
-        logging.debug(generate_progress_message(index, file_count, 'formatted', file_path))
+        formatted_message = generate_log_message(
+            file_path=file_path, message='Formatted', count=index, total_count=file_count
+        )
+        logging.debug(formatted_message)
         changed_count += 1
 
     return changed_count, unchanged_count

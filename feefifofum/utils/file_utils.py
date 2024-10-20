@@ -48,13 +48,11 @@ def write_file_lines(content: list[str], file_path: Path) -> None:  # pragma: no
         file.writelines(content)
 
 
-def backup_file(file_path: Path) -> Path:  # pragma: no cover
+def backup_file(file_path: Path, backup_file_path: Path) -> None:  # pragma: no cover
     """
     Create backup copy of file.
 
-    :param file_path: File path to backup
-    :return: File path of backed up file
+    :param file_path: File path of original file to backup
+    :param file_path: File path of backed up file
     """
-    backup_file_path = file_path.with_suffix(file_path.suffix + '.bak')
     shutil.copy2(file_path, backup_file_path)  # Try to preserve metadata
-    return backup_file_path

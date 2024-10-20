@@ -66,6 +66,7 @@ select = [
 ignore = [
     "ANN101",  # missing-type-self
     "ANN401",  # any-type
+    "COM812",  # missing-trailing-comma
     "RET504",  # unnecessary-assign
     "PLR6301", # no-self-use
     "PLW1514", # unspecified-encoding
