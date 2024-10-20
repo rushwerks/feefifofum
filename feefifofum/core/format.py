@@ -14,9 +14,5 @@ def format_feature_file(file_lines: list[str]) -> list[str]:
     :return: Formatted feature file content
     """
     stripped = strip_whitespace(file_lines)  # Whitespace must be stripped prior to format functions
-    formatted = stripped[:]
-
-    formatted = identify_and_format_tables(formatted)
-    formatted = format_whitespace(formatted)
-
-    return formatted
+    formatted = identify_and_format_tables(stripped)
+    return format_whitespace(formatted)

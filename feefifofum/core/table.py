@@ -5,21 +5,22 @@ from __future__ import annotations
 from feefifofum.core.constants import TABLE_LEFT_EDGE, TABLE_RIGHT_EDGE, TABLE_SEPARATOR, TABLE_SPACER
 
 
-def identify_and_format_tables(file_lines: list[str]) -> list[str]:
+def identify_and_format_tables(stripped_file_lines: list[str]) -> list[str]:
     """
     Identify and format feature file tables.
 
-    :param file_lines: Feature file content as list of strings
+    :param file_lines: Feature file lines stripped of whitespace
     :return: Feature file lines with formatted tables
     """
-    tables = find_tables(file_lines)
+    formatted = stripped_file_lines.copy()  # Avoid modifying list in place
+    tables = find_tables(formatted)
 
-    for start_index, table in tables.items() or {}:
+    for start_index, table in (tables or {}).items():
         formatted_table = table_formatter(table)
         end_index = start_index + len(table)
-        file_lines[start_index:end_index] = formatted_table
+        formatted[start_index:end_index] = formatted_table
 
-    return file_lines
+    return formatted
 
 
 def find_tables(file_lines: list[str]) -> dict[int, list[str]]:
@@ -72,9 +73,8 @@ def _split_table_into_rows(table: list[str]) -> list[list[str]]:
     :return: List of rows represented as list of cells
     """
     # Remove first and last cells which are empty strings, after split is applied
-    rows = [row.strip().split(TABLE_SEPARATOR)[1:-1] for row in table]
-    row_cells = [[cell.strip() for cell in row] for row in rows]
-    return row_cells
+    split_rows = [row.strip().split(TABLE_SEPARATOR)[1:-1] for row in table]
+    return [[cell.strip() for cell in row] for row in split_rows]
 
 
 def _transpose_nested_list(nested_list: list[list]) -> list[list]:
@@ -95,12 +95,7 @@ def _pad_columns(columns: list[list[str]]) -> list[list[str]]:
     :return: Padded list of columns
     """
     column_widths = [max(len(cell) for cell in column) for column in columns]
-
-    spaced_columns = [
-        [cell.ljust(column_width) for cell in column] for column, column_width in zip(columns, column_widths)
-    ]
-
-    return spaced_columns
+    return [[cell.ljust(column_width) for cell in column] for column, column_width in zip(columns, column_widths)]
 
 
 def _combine_rows_into_table(rows: list[list[str]]) -> list[str]:
