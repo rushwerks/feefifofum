@@ -12,6 +12,7 @@ def get_file_paths(input_paths: list[Path], file_extension: str) -> list[Path]:
 
     :param paths: Path(s) to files or directories containing files
     :param file_extension: File extension filter
+    :return: List of file paths with specified extension
     """
     output_paths = set()
 
