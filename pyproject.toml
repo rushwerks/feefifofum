@@ -46,7 +46,6 @@ select = [
     "UP",   # pyupgrade
     "ANN",  # flake8-annotations
     "BLE",  # flake8-blind-except
-    "FBT",  # flake8-boolean-trap
     "B",    # flake8-bugbear
     "A",    # flake8-builtins
     "COM",  # flake8-commas
@@ -64,7 +63,6 @@ select = [
     "RUF",  # Ruff-specific rules
 ]
 ignore = [
-    "FBT001",  # boolean-type-hint-positional-argument
     "ANN101",  # missing-type-self
     "ANN401",  # any-type
     "COM812",  # missing-trailing-comma
