@@ -22,13 +22,18 @@ def main() -> None:  # pragma: no cover
         logger.warning('No feature files found in specified path(s)')
         return
 
-    changed_count, unchanged_count = process_files(file_paths=file_paths, backup=args.backup)
+    changed_count, unchanged_count, dry_run_count = process_files(
+        file_paths=file_paths, backup=args.backup, dry_run=args.dry_run
+    )
 
     if changed_count:
         logger.info(f'{changed_count} file(s) formatted')
 
     if unchanged_count:
         logger.info(f'{unchanged_count} file(s) unchanged')
+
+    if dry_run_count:
+        logger.info(f'{dry_run_count} file(s) would be formatted')
 
 
 def _configure_logger(verbose: bool | None) -> None:

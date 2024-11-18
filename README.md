@@ -63,6 +63,15 @@ This works by creating a copy of the original file in the same directory, and ap
 feefifofum <file> --backup --verbose
 ```
 
+### Dry-run
+The `--dry-run` flag can be passed to avoid writing formatted files back.
+The number of files that would have been formatted, is then logged to the console after `feefifofum` has run.
+
+It can be combined with the `--debug` flag to produce a list of feature files which would be formatted.
+```shell
+feefifofum <directory> --dry-run --verbose
+```
+
 ## Pre-commit
 `feefifofum` is also available as a pre-commit hook. It can be configured as follows:
 ```yaml

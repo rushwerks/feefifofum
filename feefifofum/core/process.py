@@ -12,16 +12,17 @@ from feefifofum.utils.log import generate_log_message
 logger = logging.getLogger(__name__)
 
 
-def process_files(file_paths: list[Path], backup: bool | None) -> tuple[int, int]:
+def process_files(file_paths: list[Path], backup: bool | None, dry_run: bool | None) -> tuple[int, int, int]:
     """
     Process files and return count of formatted and unchanged files.
 
     :param file_paths: List of feature file paths to process
-    :param backup: Whether to backup original files before formatting (overwriting)
-    :return: Counts of formatted and unchanged files
+    :param backup: Backup original files before formatting (overwriting)
+    :param dry_run: Avoid writing formatted files back'
+    :return: Counts of formatted, unchanged and dry run files
     """
     file_count = len(file_paths)
-    changed_count, unchanged_count = 0, 0
+    changed_count, unchanged_count, dry_run_count = 0, 0, 0
 
     for index, file_path in enumerate(file_paths, 1):
         try:
@@ -39,6 +40,14 @@ def process_files(file_paths: list[Path], backup: bool | None) -> tuple[int, int
             )
             logger.debug(debug_message)
             unchanged_count += 1
+            continue
+
+        if dry_run:
+            dry_run_message = generate_log_message(
+                file_path=file_path, message='Dry run (skipped)', count=index, total_count=file_count
+            )
+            logger.debug(dry_run_message)
+            dry_run_count += 1
             continue
 
         if backup:
@@ -66,4 +75,4 @@ def process_files(file_paths: list[Path], backup: bool | None) -> tuple[int, int
         logger.debug(formatted_message)
         changed_count += 1
 
-    return changed_count, unchanged_count
+    return changed_count, unchanged_count, dry_run_count
