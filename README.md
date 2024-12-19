@@ -10,7 +10,7 @@
 
 Fee-fi-fo-fum (`feefifofum`) is a simple and lightweight (fe)ature (fi)le (fo)rmatter written in Python.
 
-A `.feature` file is a plain-text file written in Gherkin syntax, and is used in Behavior Driven Development (BDD) to define test scenarios for software.
+A `.feature` file is a plain-text file written in Gherkin syntax. It is used in Behavior Driven Development (BDD) to define test scenarios for software.
 
 ## Formatting
 The formatter follows a list of pre-defined rules outlined below.
@@ -28,14 +28,14 @@ The formatter follows a list of pre-defined rules outlined below.
     * Tables/step comments: Six spaces
 
 ## Installation
-Install  `feefifofum` directly from GitHub by running the following command:
+Install `feefifofum` from GitHub by running the following command:
 ```shell
 pip install git+https://github.com/rushwerks/feefifofum.git@v0.3.0
 ```
 
 ## Usage
-`feefifofum` can run directly on feature files or directories containing feature files.
-If directory paths are provided, then feature files in all subdirectories will also be formatted.
+`feefifofum` runs directly on feature files or directories containing feature files.
+If directory paths are provided, then feature files in all corresponding subdirectories will also be formatted.
 
 ```shell
 feefifofum <file>                     # Format a single file
@@ -47,7 +47,7 @@ feefifofum <directory1> <directory2>  # Format all feature files in multiple dir
 
 ### Output
 In its default setting, `feefifofum` will only log the total number of formatted and unchanged files to the console.
-Files marked as 'unchanged' already meet the required formatting standard and therefore no changes are written to these files.
+Files marked as 'unchanged' already meet the required formatting standard. Therefore no changes are written to these files.
 
 The `--verbose` or `-v` flag can be passed to log realtime information on which files have been formatted (or are unchanged), and overall progress.
 ```shell
