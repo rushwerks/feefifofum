@@ -22,7 +22,7 @@ repos:
         name: Validate Python
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.0
+    rev: v0.11.2
     hooks:
       - id: ruff
         args: ['--preview']
